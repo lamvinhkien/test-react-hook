@@ -1,14 +1,23 @@
 const Customers = (props) => {
-    const listCustomer = props.myCustomers;
-    return(
-        <div className="listCustomer" >{listCustomer.map((customer) => {
-            return (
-              <li key={customer.id}>
-                {customer.name}
-              </li>
-            )
-          })}</div>
-    )
+  const { title, listCustomer, DeleteCustomer } = props
+  const handleEventDeleteCustomer = (id) => {
+    DeleteCustomer(id)
+  }
+  return (
+    <div className="listCustomer" >
+      <h5>{title}</h5>
+      {listCustomer.map((customer) => {
+        return (
+          <div>
+            <li key={customer.id}>
+              {customer.name} <span onClick={()=>handleEventDeleteCustomer(customer.id)}>X</span>
+            </li>
+          </div>
+        )
+      })}
+      <hr />
+    </div>
+  )
 }
 
 export default Customers;

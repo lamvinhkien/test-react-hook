@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import Nav from "./Components/Nav.js";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Customers from './Components/Customers.js';
 import Count from './Components/Count.js';
 import Name from './Components/Name.js';
+import Shoes from './Components/Shoes.js';
+
 
 function App() {
 
@@ -12,11 +14,12 @@ function App() {
   let [name2, setName2] = useState("") // set show name
   let [changeName, setChangeName] = useState("Add name") // set button name
   let [listCustomer, setListCustomer] = useState([
-    { id: "1", name: "abc" },
-    { id: "2", name: "xyz" },
+    { id: "1", name: "abc", type: "A" },
+    { id: "2", name: "xyz", type: "B" },
+    { id: "3", name: "mnp", type: "A" },
+    { id: "4", name: "ljk", type: "B" },
   ]) // set list customer
   let [customer, setCustomer] = useState("") // set event onChange for list customer
-  let [number, setCount] = useState(0) // set count number + -
 
   const handleEventClick = (event) => {
     if (!name1) {
@@ -34,13 +37,14 @@ function App() {
 
   const handleEventOnChange2 = (event) => {
     setCustomer(event.target.value);
+
   }
 
   const handleEventClick2 = (event) => {
     if (!customer) {
       alert("Empty !!!")
     } else {
-      let newCustomer = { id: "abc", name: customer }
+      let newCustomer = { id: Math.floor(Math.random() * 100) + 1, name: customer, type: "A" }
       setListCustomer([
         ...listCustomer, newCustomer
       ]);
@@ -48,28 +52,50 @@ function App() {
     }
   }
 
+  const DeleteCustomer = (id) => {
+    let customer = listCustomer.filter(item => item.id !== id)
+    setListCustomer(customer)
+  }
+
+  // useEffect(()=>{
+  //   console.log("Change name successful")
+  // }, [name2])
+
+  // useEffect(()=>{
+  //   console.log("List Customer KKK")
+  // }, [listCustomer])
+
   return (
     <div className="App">
-      <Nav />
       <header className="App-header">
+        <Nav />
         <img src={logo} className="App-logo" alt="logo" />
-
         {/* Data */}
-        <Name  name2 = {name2} />
+        {/* <Name name2={name2} />
         <input type='text' value={name1} onChange={(event) => { handleEventOnChange(event) }} />
-        <button type='button' onClick={(event) => handleEventClick(event)}>{changeName}</button>
+        <button type='button' onClick={(event) => handleEventClick(event)}>{changeName}</button> */}
 
         {/* List data */}
-        <Customers myCustomers={listCustomer} />
+        {/* <Customers
+          title={"All customer"}
+          listCustomer={listCustomer}
+          DeleteCustomer={DeleteCustomer}
+        />
+
+        <Customers
+          title={"Type A"}
+          listCustomer={listCustomer.filter(item => item.type === "A")}
+          DeleteCustomer={DeleteCustomer}
+        />
+
         <input type="text" value={customer} onChange={(event) => { handleEventOnChange2(event) }} />
-        <button type="button" onClick={(event) => { handleEventClick2(event) }}>Add customer</button>
+        <button type="button" onClick={(event) => { handleEventClick2(event) }}>Add customer</button> */}
 
         {/* Count */}
-        <Count number={number} />
-        <button type='button' onClick={() => { setCount(number + 1) }}>+</button>
-        <button type='button' onClick={() => { setCount(number - 1) }}>-</button>
-        
+        <Shoes/>
       </header>
+
+
     </div>
   );
 }

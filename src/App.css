@@ -35,3 +35,32 @@
     transform: rotate(360deg);
   }
 }
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 15px;
+}
+
+thead {
+  background-color: #137f9c;
+}
+
+td, th {
+  border: 1px solid #9f9f9f;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #333333;
+}
+
+.isLoading {
+  text-align: center;
+}
+
+.isError {
+  text-align: center;
+}
